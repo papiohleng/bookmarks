@@ -17,6 +17,9 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
+    <!-- Added Font Awesome for original social media icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         /* CSS Custom Properties for theming */
         :root {
@@ -57,6 +60,23 @@
             --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             --transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
+        /* Added light theme variables */
+        [data-theme="light"] {
+            --bg-primary: hsl(0, 0%, 98%);
+            --bg-secondary: hsl(0, 0%, 95%);
+            --bg-tertiary: hsl(0, 0%, 92%);
+            --bg-card: hsl(0, 0%, 100%);
+            
+            --text-primary: hsl(222, 84%, 5%);
+            --text-secondary: hsl(215, 20%, 35%);
+            --text-muted: hsl(215, 20%, 55%);
+            
+            --border: hsl(217, 32%, 83%);
+            --border-hover: hsl(217, 32%, 75%);
+            
+            --primary-light-bg: hsl(var(--primary-hue), var(--primary-sat), 95%);
+        }
         
         /* Modern CSS Reset */
         *, *::before, *::after {
@@ -80,6 +100,80 @@
             background-image: 
                 radial-gradient(circle at 25% 25%, hsl(var(--primary-hue), 100%, 15%) 0%, transparent 50%),
                 radial-gradient(circle at 75% 75%, hsl(280, 100%, 15%) 0%, transparent 50%);
+        }
+
+        /* Added scroll to top button styles */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            cursor: pointer;
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Added WhatsApp floating button styles */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            z-index: 1000;
+            background: #25D366;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            text-decoration: none;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-float::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #25D366, #128C7E);
+            z-index: -1;
+            animation: pulse-whatsapp 2s infinite;
+        }
+
+        @keyframes pulse-whatsapp {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 0.3; }
         }
         
         /* Container Queries */
@@ -443,6 +537,139 @@
         .bookmark-favorite.active {
             color: var(--accent);
         }
+
+        /* Added donation section styles */
+        .donation-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .donation-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .donation-description {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .donation-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .donation-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            border: 1px solid var(--border);
+        }
+
+        .donation-button.paypal {
+            background: #0070ba;
+            color: white;
+            border-color: #0070ba;
+        }
+
+        .donation-button.patreon {
+            background: #ff424d;
+            color: white;
+            border-color: #ff424d;
+        }
+
+        .donation-button.kofi {
+            background: #ff5e5b;
+            color: white;
+            border-color: #ff5e5b;
+        }
+
+        .donation-button.github {
+            background: #24292e;
+            color: white;
+            border-color: #24292e;
+        }
+
+        .donation-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Added instruction manual section styles */
+        .manual-section {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .manual-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .manual-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .manual-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 1.5rem;
+        }
+
+        .manual-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .manual-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .manual-card li {
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .manual-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
         
         /* Social Media Float */
         .social-float {
@@ -640,13 +867,26 @@
                 flex-direction: column;
                 align-items: stretch;
             }
+
+            .donation-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .donation-button {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
         }
         
         /* Print Styles */
         @media print {
             .social-float,
             .theme-toggle,
-            .view-controls {
+            .view-controls,
+            .whatsapp-float,
+            .scroll-to-top {
                 display: none;
             }
             
@@ -778,6 +1018,17 @@
             .view-controls {
                 justify-content: center;
             }
+
+            /* Adjusted mobile positioning for floating elements */
+            .whatsapp-float {
+                bottom: 140px;
+                right: 20px;
+            }
+
+            .scroll-to-top {
+                bottom: 90px;
+                left: 20px;
+            }
         }
 
         /* Touch-friendly improvements */
@@ -908,6 +1159,106 @@
             <div class="bookmark-grid" id="bookmarkGrid">
                 <!-- Bookmarks will be populated by JavaScript -->
             </div>
+
+            <!-- Added donation section -->
+            <section class="donation-section">
+                <h2 class="donation-title">
+                    <i class="fas fa-heart" style="color: #ff424d; margin-right: 0.5rem;"></i>
+                    Support Development
+                </h2>
+                <p class="donation-description">
+                    Help us continue improving this bookmark manager! Your support enables us to add new features, 
+                    fix bugs, and maintain this free tool for everyone. Every contribution, no matter how small, makes a difference.
+                </p>
+                <div class="donation-buttons">
+                    <a href="https://paypal.me/bookmarkmanager" target="_blank" rel="noopener noreferrer" class="donation-button paypal">
+                        <i class="fab fa-paypal"></i>
+                        PayPal
+                    </a>
+                    <a href="https://patreon.com/bookmarkmanager" target="_blank" rel="noopener noreferrer" class="donation-button patreon">
+                        <i class="fab fa-patreon"></i>
+                        Patreon
+                    </a>
+                    <a href="https://ko-fi.com/bookmarkmanager" target="_blank" rel="noopener noreferrer" class="donation-button kofi">
+                        <i class="fas fa-coffee"></i>
+                        Ko-fi
+                    </a>
+                    <a href="https://github.com/sponsors/bookmarkmanager" target="_blank" rel="noopener noreferrer" class="donation-button github">
+                        <i class="fab fa-github"></i>
+                        GitHub Sponsors
+                    </a>
+                </div>
+            </section>
+
+            <!-- Added instruction manual section -->
+            <section class="manual-section">
+                <h2 class="manual-title">
+                    <i class="fas fa-book"></i>
+                    Instruction Manual
+                </h2>
+                <div class="manual-content">
+                    <div class="manual-card">
+                        <h3><i class="fas fa-plus-circle"></i> Adding Bookmarks</h3>
+                        <ul>
+                            <li>Click "Add Bookmark" in the sidebar</li>
+                            <li>Enter the URL and title</li>
+                            <li>Choose a category or create a new one</li>
+                            <li>Add tags for better organization</li>
+                            <li>Use Ctrl+N (Cmd+N) for quick add</li>
+                        </ul>
+                    </div>
+                    <div class="manual-card">
+                        <h3><i class="fas fa-search"></i> Search & Filter</h3>
+                        <ul>
+                            <li>Use the search bar to find bookmarks</li>
+                            <li>Search by title, URL, or tags</li>
+                            <li>Filter by categories in the sidebar</li>
+                            <li>Use Ctrl+K (Cmd+K) to focus search</li>
+                            <li>Click categories to filter results</li>
+                        </ul>
+                    </div>
+                    <div class="manual-card">
+                        <h3><i class="fas fa-cog"></i> Organization</h3>
+                        <ul>
+                            <li>Create custom categories</li>
+                            <li>Add multiple tags to bookmarks</li>
+                            <li>Mark favorites with the star icon</li>
+                            <li>Switch between grid and list views</li>
+                            <li>Sort by date, visits, or alphabetically</li>
+                        </ul>
+                    </div>
+                    <div class="manual-card">
+                        <h3><i class="fas fa-download"></i> Import & Export</h3>
+                        <ul>
+                            <li>Import from browser bookmarks</li>
+                            <li>Export your bookmarks as JSON</li>
+                            <li>Backup your data regularly</li>
+                            <li>Sync across multiple devices</li>
+                            <li>Share bookmark collections</li>
+                        </ul>
+                    </div>
+                    <div class="manual-card">
+                        <h3><i class="fas fa-keyboard"></i> Keyboard Shortcuts</h3>
+                        <ul>
+                            <li>Ctrl+K / Cmd+K: Focus search</li>
+                            <li>Ctrl+N / Cmd+N: Add new bookmark</li>
+                            <li>Escape: Close mobile menu</li>
+                            <li>Enter: Open selected bookmark</li>
+                            <li>Space: Toggle favorite</li>
+                        </ul>
+                    </div>
+                    <div class="manual-card">
+                        <h3><i class="fas fa-mobile-alt"></i> Mobile Features</h3>
+                        <ul>
+                            <li>Swipe right to open categories</li>
+                            <li>Tap floating menu button</li>
+                            <li>Touch-friendly interface</li>
+                            <li>Responsive design for all screens</li>
+                            <li>Offline functionality available</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
         </main>
         
         <!-- Social Media Float -->
@@ -971,6 +1322,16 @@
             </div>
         </div>
     </div>
+
+    <!-- Added WhatsApp floating button -->
+    <a href="https://wa.me/27730000822" target="_blank" rel="noopener noreferrer" class="whatsapp-float" title="Contact Customer Service">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Added scroll to top button -->
+    <button class="scroll-to-top" id="scrollToTop" title="Scroll to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
     
     <script>
         // Modern JavaScript with ES6+ features
@@ -981,10 +1342,12 @@
                 this.currentCategory = 'all';
                 this.currentView = 'grid';
                 this.searchTerm = '';
+                this.openedTabs = new Set(); // Track opened tabs to prevent duplicates
                 
                 this.init();
                 this.setupEventListeners();
                 this.setupServiceWorker();
+                this.initializeTheme(); // Initialize theme on load
             }
             
             // Initialize the application
@@ -993,6 +1356,31 @@
                 this.renderBookmarks();
                 this.renderSocialMedia();
                 this.setupIntersectionObserver();
+                this.setupScrollToTop(); // Setup scroll to top functionality
+            }
+
+            initializeTheme() {
+                const savedTheme = localStorage.getItem('theme') || 'dark';
+                document.documentElement.setAttribute('data-theme', savedTheme);
+            }
+
+            setupScrollToTop() {
+                const scrollToTopBtn = document.getElementById('scrollToTop');
+                
+                window.addEventListener('scroll', () => {
+                    if (window.pageYOffset > 300) {
+                        scrollToTopBtn.classList.add('visible');
+                    } else {
+                        scrollToTopBtn.classList.remove('visible');
+                    }
+                });
+
+                scrollToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
             }
             
             // Load bookmarks from localStorage or use default data
@@ -1409,61 +1797,38 @@
                 });
             }
             
-            // Render social media links
             renderSocialMedia() {
                 const socialGrid = document.getElementById('socialGrid');
                 const socialPlatforms = [
-                    { name: 'Facebook', url: 'https://facebook.com', color: '#1877F2', icon: 'FB' },
-                    { name: 'Twitter', url: 'https://twitter.com', color: '#1DA1F2', icon: 'TW' },
-                    { name: 'Instagram', url: 'https://instagram.com', color: '#E4405F', icon: 'IG' },
-                    { name: 'LinkedIn', url: 'https://linkedin.com', color: '#0A66C2', icon: 'LI' },
-                    { name: 'YouTube', url: 'https://youtube.com', color: '#FF0000', icon: 'YT' },
-                    { name: 'TikTok', url: 'https://tiktok.com', color: '#000000', icon: 'TT' },
-                    { name: 'Pinterest', url: 'https://pinterest.com', color: '#BD081C', icon: 'PI' },
-                    { name: 'Snapchat', url: 'https://snapchat.com', color: '#FFFC00', icon: 'SC' },
-                    { name: 'Reddit', url: 'https://reddit.com', color: '#FF4500', icon: 'RD' },
-                    { name: 'Discord', url: 'https://discord.com', color: '#5865F2', icon: 'DC' },
-                    { name: 'Twitch', url: 'https://twitch.tv', color: '#9146FF', icon: 'TV' },
-                    { name: 'GitHub', url: 'https://github.com', color: '#181717', icon: 'GH' },
-                    { name: 'Dribbble', url: 'https://dribbble.com', color: '#EA4C89', icon: 'DR' },
-                    { name: 'Behance', url: 'https://behance.net', color: '#1769FF', icon: 'BE' },
-                    { name: 'Medium', url: 'https://medium.com', color: '#000000', icon: 'MD' },
-                    { name: 'Slack', url: 'https://slack.com', color: '#4A154B', icon: 'SL' },
-                    { name: 'Zoom', url: 'https://zoom.us', color: '#2D8CFF', icon: 'ZM' },
-                    { name: 'Spotify', url: 'https://spotify.com', color: '#1DB954', icon: 'SP' },
-                    { name: 'Netflix', url: 'https://netflix.com', color: '#E50914', icon: 'NF' },
-                    { name: 'Amazon', url: 'https://amazon.com', color: '#FF9900', icon: 'AM' },
-                    { name: 'Google', url: 'https://google.com', color: '#4285F4', icon: 'GO' },
-                    { name: 'Apple', url: 'https://apple.com', color: '#000000', icon: 'AP' },
-                    { name: 'Microsoft', url: 'https://microsoft.com', color: '#00A4EF', icon: 'MS' },
-                    { name: 'Adobe', url: 'https://adobe.com', color: '#FF0000', icon: 'AD' },
-                    { name: 'Figma', url: 'https://figma.com', color: '#F24E1E', icon: 'FG' },
-                    { name: 'Notion', url: 'https://notion.so', color: '#000000', icon: 'NO' },
-                    { name: 'Trello', url: 'https://trello.com', color: '#0079BF', icon: 'TR' },
-                    { name: 'Asana', url: 'https://asana.com', color: '#F06A6A', icon: 'AS' },
-                    { name: 'Dropbox', url: 'https://dropbox.com', color: '#0061FF', icon: 'DB' },
-                    { name: 'OneDrive', url: 'https://onedrive.com', color: '#0078D4', icon: 'OD' },
-                    { name: 'Gmail', url: 'https://gmail.com', color: '#EA4335', icon: 'GM' },
-                    { name: 'Outlook', url: 'https://outlook.com', color: '#0078D4', icon: 'OL' },
-                    { name: 'WhatsApp', url: 'https://whatsapp.com', color: '#25D366', icon: 'WA' },
-                    { name: 'Telegram', url: 'https://telegram.org', color: '#26A5E4', icon: 'TG' },
-                    { name: 'Signal', url: 'https://signal.org', color: '#3A76F0', icon: 'SG' },
-                    { name: 'Skype', url: 'https://skype.com', color: '#00AFF0', icon: 'SK' },
-                    { name: 'Viber', url: 'https://viber.com', color: '#665CAC', icon: 'VB' },
-                    { name: 'WeChat', url: 'https://wechat.com', color: '#07C160', icon: 'WC' },
-                    { name: 'Line', url: 'https://line.me', color: '#00C300', icon: 'LN' },
-                    { name: 'Clubhouse', url: 'https://clubhouse.com', color: '#F1C40F', icon: 'CH' },
-                    { name: 'Mastodon', url: 'https://mastodon.social', color: '#6364FF', icon: 'MA' },
-                    { name: 'Bluesky', url: 'https://bsky.app', color: '#00A8E8', icon: 'BS' },
-                    { name: 'Threads', url: 'https://threads.net', color: '#000000', icon: 'TH' },
-                    { name: 'Vimeo', url: 'https://vimeo.com', color: '#1AB7EA', icon: 'VM' },
-                    { name: 'Dailymotion', url: 'https://dailymotion.com', color: '#0066DC', icon: 'DM' },
-                    { name: 'Rumble', url: 'https://rumble.com', color: '#85C742', icon: 'RU' },
-                    { name: 'Bitchute', url: 'https://bitchute.com', color: '#FF6B35', icon: 'BC' },
-                    { name: 'Odysee', url: 'https://odysee.com', color: '#EF4444', icon: 'OY' },
-                    { name: 'Patreon', url: 'https://patreon.com', color: '#FF424D', icon: 'PT' },
-                    { name: 'Ko-fi', url: 'https://ko-fi.com', color: '#FF5E5B', icon: 'KF' },
-                    { name: 'OnlyFans', url: 'https://onlyfans.com', color: '#00AFF0', icon: 'OF' }
+                    { name: 'Facebook', url: 'https://facebook.com', color: '#1877F2', icon: 'fab fa-facebook-f' },
+                    { name: 'Twitter', url: 'https://twitter.com', color: '#1DA1F2', icon: 'fab fa-twitter' },
+                    { name: 'Instagram', url: 'https://instagram.com', color: '#E4405F', icon: 'fab fa-instagram' },
+                    { name: 'LinkedIn', url: 'https://linkedin.com', color: '#0A66C2', icon: 'fab fa-linkedin-in' },
+                    { name: 'YouTube', url: 'https://youtube.com', color: '#FF0000', icon: 'fab fa-youtube' },
+                    { name: 'TikTok', url: 'https://tiktok.com', color: '#000000', icon: 'fab fa-tiktok' },
+                    { name: 'Pinterest', url: 'https://pinterest.com', color: '#BD081C', icon: 'fab fa-pinterest-p' },
+                    { name: 'Snapchat', url: 'https://snapchat.com', color: '#FFFC00', icon: 'fab fa-snapchat-ghost' },
+                    { name: 'Reddit', url: 'https://reddit.com', color: '#FF4500', icon: 'fab fa-reddit-alien' },
+                    { name: 'Discord', url: 'https://discord.com', color: '#5865F2', icon: 'fab fa-discord' },
+                    { name: 'Twitch', url: 'https://twitch.tv', color: '#9146FF', icon: 'fab fa-twitch' },
+                    { name: 'GitHub', url: 'https://github.com', color: '#181717', icon: 'fab fa-github' },
+                    { name: 'Dribbble', url: 'https://dribbble.com', color: '#EA4C89', icon: 'fab fa-dribbble' },
+                    { name: 'Behance', url: 'https://behance.net', color: '#1769FF', icon: 'fab fa-behance' },
+                    { name: 'Medium', url: 'https://medium.com', color: '#000000', icon: 'fab fa-medium-m' },
+                    { name: 'Slack', url: 'https://slack.com', color: '#4A154B', icon: 'fab fa-slack' },
+                    { name: 'Zoom', url: 'https://zoom.us', color: '#2D8CFF', icon: 'fas fa-video' },
+                    { name: 'Spotify', url: 'https://spotify.com', color: '#1DB954', icon: 'fab fa-spotify' },
+                    { name: 'Netflix', url: 'https://netflix.com', color: '#E50914', icon: 'fas fa-play' },
+                    { name: 'Amazon', url: 'https://amazon.com', color: '#FF9900', icon: 'fab fa-amazon' },
+                    { name: 'Google', url: 'https://google.com', color: '#4285F4', icon: 'fab fa-google' },
+                    { name: 'Apple', url: 'https://apple.com', color: '#000000', icon: 'fab fa-apple' },
+                    { name: 'Microsoft', url: 'https://microsoft.com', color: '#00A4EF', icon: 'fab fa-microsoft' },
+                    { name: 'WhatsApp', url: 'https://whatsapp.com', color: '#25D366', icon: 'fab fa-whatsapp' },
+                    { name: 'Telegram', url: 'https://telegram.org', color: '#26A5E4', icon: 'fab fa-telegram-plane' },
+                    { name: 'Signal', url: 'https://signal.org', color: '#3A76F0', icon: 'fas fa-shield-alt' },
+                    { name: 'Skype', url: 'https://skype.com', color: '#00AFF0', icon: 'fab fa-skype' },
+                    { name: 'Patreon', url: 'https://patreon.com', color: '#FF424D', icon: 'fab fa-patreon' },
+                    { name: 'PayPal', url: 'https://paypal.com', color: '#0070ba', icon: 'fab fa-paypal' }
                 ];
                 
                 socialGrid.innerHTML = socialPlatforms.map(platform => `
@@ -1472,8 +1837,8 @@
                        target="_blank" 
                        rel="noopener noreferrer"
                        title="${platform.name}"
-                       style="--platform-color: ${platform.color}">
-                        ${platform.icon}
+                       style="background-color: ${platform.color};">
+                        <i class="${platform.icon}"></i>
                     </a>
                 `).join('');
             }
@@ -1504,12 +1869,33 @@
                 }
             }
             
-            // Open bookmark in new tab
             openBookmark(bookmark) {
+                const tabKey = bookmark.url;
+                
+                // Check if tab is already open
+                if (this.openedTabs.has(tabKey)) {
+                    this.showNotification('This bookmark is already open in another tab', 'info');
+                    return;
+                }
+                
+                // Add to opened tabs set
+                this.openedTabs.add(tabKey);
+                
+                // Remove from set after a delay to allow for new opens
+                setTimeout(() => {
+                    this.openedTabs.delete(tabKey);
+                }, 2000);
+                
                 bookmark.visits = (bookmark.visits || 0) + 1;
                 bookmark.lastVisited = new Date().toISOString();
                 this.saveBookmarks();
-                window.open(bookmark.url, '_blank', 'noopener,noreferrer');
+                
+                // Open in new tab
+                const newTab = window.open(bookmark.url, '_blank', 'noopener,noreferrer');
+                if (!newTab) {
+                    this.showNotification('Please allow popups for this site', 'error');
+                    this.openedTabs.delete(tabKey);
+                }
             }
             
             // Update active category button
@@ -1541,7 +1927,7 @@
 
             addBookmark(bookmark) {
                 const newBookmark = {
-                    id: Date.now(),
+                    id: Date.now().toString(),
                     title: bookmark.title,
                     url: bookmark.url,
                     category: bookmark.category,
@@ -1549,7 +1935,8 @@
                     tags: bookmark.tags || [],
                     dateAdded: new Date().toISOString(),
                     visits: 0,
-                    isFavorite: false
+                    favorite: false,
+                    favicon: '🔗'
                 };
                 
                 this.bookmarks.push(newBookmark);
@@ -1559,6 +1946,44 @@
                 this.showNotification('Bookmark added successfully!');
             }
 
+            importBookmarks() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = '.json';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            try {
+                                const importedBookmarks = JSON.parse(e.target.result);
+                                this.bookmarks = [...this.bookmarks, ...importedBookmarks];
+                                this.saveBookmarks();
+                                this.renderCategories();
+                                this.renderBookmarks();
+                                this.showNotification(`Imported ${importedBookmarks.length} bookmarks!`);
+                            } catch (error) {
+                                this.showNotification('Error importing bookmarks', 'error');
+                            }
+                        };
+                        reader.readAsText(file);
+                    }
+                };
+                input.click();
+            }
+
+            exportBookmarks() {
+                const dataStr = JSON.stringify(this.bookmarks, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(dataBlob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'bookmarks-export.json';
+                link.click();
+                URL.revokeObjectURL(url);
+                this.showNotification('Bookmarks exported successfully!');
+            }
+
             showNotification(message, type = 'success') {
                 // Simple notification system
                 const notification = document.createElement('div');
@@ -1566,12 +1991,13 @@
                     position: fixed;
                     top: 20px;
                     right: 20px;
-                    background: ${type === 'error' ? '#ef4444' : '#10b981'};
+                    background: ${type === 'error' ? '#ef4444' : type === 'info' ? '#3b82f6' : '#10b981'};
                     color: white;
                     padding: 1rem 1.5rem;
                     border-radius: 8px;
                     z-index: 10000;
                     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+                    max-width: 300px;
                 `;
                 notification.textContent = message;
                 document.body.appendChild(notification);
@@ -1582,10 +2008,34 @@
             }
 
             toggleTheme() {
-                const currentTheme = document.documentElement.getAttribute('data-theme');
+                const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
                 const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
                 document.documentElement.setAttribute('data-theme', newTheme);
                 localStorage.setItem('theme', newTheme);
+                
+                // Update theme toggle icon
+                const themeToggle = document.getElementById('themeToggle');
+                const icon = themeToggle.querySelector('svg');
+                
+                if (newTheme === 'light') {
+                    icon.innerHTML = `
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    `;
+                } else {
+                    icon.innerHTML = `
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    `;
+                }
+                
+                this.showNotification(`Switched to ${newTheme} theme`);
             }
 
             // Setup intersection observer for animations
